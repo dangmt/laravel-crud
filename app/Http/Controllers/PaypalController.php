@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CartItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use PayPal\Api\Amount;
 use PayPal\Api\ItemList;
 use PayPal\Api\Item;
@@ -69,8 +70,9 @@ class PaypalController extends Controller
                 ->setRedirectUrls($redirectUrls);
 
             $payment->create($apiContext);
-            //print_r($payment->getApprovalLink());
+            // print_r($payment->create($apiContext)->toJSON());
             return response()->json(['approval_link' => $payment->getApprovalLink()]);
+            // return response()->json($payment->getApprovalLink());
 
             //return redirect()->away($payment->getApprovalLink());
         } catch (PayPalConnectionException $ex) {

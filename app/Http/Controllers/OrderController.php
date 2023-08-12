@@ -26,8 +26,6 @@ class OrderController extends Controller
                 'quantity' => $cartItem->quantity,
             ]);
             $orderItem->save();
-
-            $cartItem->delete();
         }
 
         return response()->json(['message' => 'Order created successfully']);

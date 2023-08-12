@@ -10,6 +10,7 @@ use Stripe\Stripe;
 
 class StripeController extends Controller
 {
+  
     public function payment(Request $request)
     {
         Stripe::setApiKey(config('services.stripe.secret'));
@@ -25,6 +26,7 @@ class StripeController extends Controller
         ]);
 
         return response()->json(['client_secret' => $paymentIntent->client_secret]);
+        // return response()->json(["{\"client_secret\": \"" + $paymentIntent->client_secret + "\"}"]);
     }
 
     private function calculateOrderTotal($cartItems)
