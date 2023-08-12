@@ -67,7 +67,7 @@ class OrderController extends Controller
         }
 
         // Delete associated order items
-        OrderItem::where('order_id', $orderId)->delete();
+        //OrderItem::where('order_id', $orderId)->delete();
 
         // Delete the order
         $order->delete();
