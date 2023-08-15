@@ -26,7 +26,7 @@ use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\StripeController;
 
 Route::resource('products', ProductController::class);
-Route::resource('cart', CartItemController::class);
+Route::resource('cartitems', CartItemController::class);
 Route::resource('orders', OrderController::class);
 Route::get('stripe', [StripeController::class, 'payment']);
 Route::get('paypal', [PaypalController::class, 'payment']);
