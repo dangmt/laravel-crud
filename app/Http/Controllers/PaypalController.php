@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use PayPal\Api\Amount;
@@ -75,8 +76,8 @@ class PaypalController extends Controller
             // return response()->json($payment->getApprovalLink());
 
             //return redirect()->away($payment->getApprovalLink());
-        } catch (PayPalConnectionException $ex) {
-            return back()->withErrors(['error' => 'PayPal API error']);
+        } catch (Exception $ex) {
+            return response()->json(['error' => $ex->getMessage()], 400);
         }
     }
 
