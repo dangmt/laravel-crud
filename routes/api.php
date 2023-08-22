@@ -23,6 +23,7 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\StripeController;
 
 Route::resource('products', ProductController::class);
@@ -32,3 +33,4 @@ Route::get('stripe', [StripeController::class, 'payment']);
 Route::get('paypal', [PaypalController::class, 'payment']);
 Route::get('/paypal/complete', [PayPalController::class, 'complete'])->name('paypal.complete');
 Route::get('/paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+Route::post('/send-email', [SendEmailController::class, 'sendEmail']);
