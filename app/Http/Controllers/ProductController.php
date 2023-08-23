@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ProductController extends Controller
 {
@@ -74,6 +75,7 @@ class ProductController extends Controller
             $imagePath = $request->file('image')->store('product_images', 'public');
             $product->image = $imagePath;
         }
+        print_r($request->all());
 
         $product->name = $request->input('name', $product->name);
         $product->price = $request->input('price', $product->price);
@@ -93,5 +95,37 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->json(['message' => 'Product deleted successfully'], 200);
+    }
+    public function getAllProducts(Request $request)
+    {
+        try {
+            $keyword = $request->input('keyword');
+            $sortField = $request->input('sort', 'id');
+            $sortOrder = $request->input('order', 'asc');
+            $page = $request->input('page', 0);
+            $size = $request->input('size', 10);
+            $query = Product::query();
+
+            if (!empty($keyword)) {
+                $query->where('name', 'like', "%{$keyword}%");
+            }
+
+            if ($sortField === 'id' || $sortField === 'name') {
+                $query->orderBy($sortField, $sortOrder);
+            }
+
+            $totalCount = $query->count();
+            $products =
+                $query->skip($page * $size)->take($size)->get();
+
+            return response()->json([
+                'items' => $products,
+                'page' => $page,
+                'pageSize' => $size,
+                'totalCount' => $totalCount,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 }

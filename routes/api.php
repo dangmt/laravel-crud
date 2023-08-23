@@ -34,3 +34,4 @@ Route::get('paypal', [PaypalController::class, 'payment']);
 Route::get('/paypal/complete', [PayPalController::class, 'complete'])->name('paypal.complete');
 Route::get('/paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
 Route::post('/send-email', [SendEmailController::class, 'sendEmail']);
+Route::post('/products/search', [ProductController::class, 'getAllProducts']);
