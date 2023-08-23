@@ -110,9 +110,8 @@ class ProductController extends Controller
                 $query->where('name', 'like', "%{$keyword}%");
             }
 
-            if ($sortField === 'id' || $sortField === 'name') {
-                $query->orderBy($sortField, $sortOrder);
-            }
+            $query->orderBy($sortField, $sortOrder);
+
 
             $totalCount = $query->count();
             $products =
