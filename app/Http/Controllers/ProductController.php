@@ -109,6 +109,7 @@ class ProductController extends Controller
             if (!empty($keyword)) {
                 $query->where('name', 'like', "%{$keyword}%");
             }
+            $sortDirection = strtolower($sortOrder) === 'asc' ? 'asc' : 'desc';
 
             $query->orderBy($sortField, $sortOrder);
 
