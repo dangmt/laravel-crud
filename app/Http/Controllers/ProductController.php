@@ -111,7 +111,7 @@ class ProductController extends Controller
             }
             $sortDirection = strtolower($sortOrder) === 'asc' ? 'asc' : 'desc';
 
-            $query->orderBy($sortField, $sortOrder);
+            $query->orderBy($sortField, $sortDirection);
 
 
             $totalCount = $query->count();
